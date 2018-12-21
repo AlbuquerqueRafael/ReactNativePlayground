@@ -31,12 +31,12 @@ export default class OptionsPAC extends Component {
 
     return (
       <View style={styles.container}>
-        {this._renderPhoto(photo)}      
+        {this._renderPhoto(photo)}
         <TouchableOpacity
           onPress={this._loadImage}
           style={styles.buttonLoadImage}>
           <Text style={styles.buttonText}> Carregar foto </Text>
-        </TouchableOpacity> 
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={this._capturePhoto}
           style={styles.buttonStartCamera}>
@@ -58,7 +58,7 @@ export default class OptionsPAC extends Component {
       aspect: [4, 3],
     }, (response) => {
       let imageLoaded = response;
-      let node = {"image": { 
+      let node = {"image": {
         "uri": imageLoaded.uri,
         "base64": imageLoaded.data
        }}
@@ -74,7 +74,7 @@ export default class OptionsPAC extends Component {
       <Image source={photo ? photo.image : undefined} resizeMode="contain"
       style={{ height: 320, width: 400, resizeMode: 'contain' }}/>
     );
-    
+
     return image;
   }
 
@@ -85,7 +85,7 @@ export default class OptionsPAC extends Component {
     // if (!permission) {
     //   return;
     // }
-    
+
     ImagePicker.launchImageLibrary({
       base64: true,
       allowsEditing: true,
@@ -94,7 +94,7 @@ export default class OptionsPAC extends Component {
       let imageLoaded = response;
 
       let node = {
-        "image": { 
+        "image": {
         "uri": imageLoaded.uri,
         "base64": imageLoaded.data
        }}
@@ -106,7 +106,7 @@ export default class OptionsPAC extends Component {
 
 
 
-    
+
   }
 
   _uploadPhoto(photo) {
@@ -116,7 +116,7 @@ export default class OptionsPAC extends Component {
         type: 'image/jpeg',
         name: 'photo.jpg',
       };
-      
+
       var body = new FormData();
       body.append("image_data", photo.image.base64);
       body.append('photo', image);
@@ -124,10 +124,10 @@ export default class OptionsPAC extends Component {
 
       axios({
         method: 'post',
-        url: 'http://192.168.0.16:8080/upload/',
+        url: 'http://yourip/upload/',
         data: body,
         headers: {'Content-Type': 'multipart/form-data'},
-      }) 
+      })
       .then(function (response) {
         console.log("works");
       })
@@ -140,8 +140,8 @@ export default class OptionsPAC extends Component {
   async requestCameraPermissions() {
     try {
       const result = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE)
-    
-      if (result === PermissionsAndroid.RESULTS.GRANTED) { 
+
+      if (result === PermissionsAndroid.RESULTS.GRANTED) {
         return true;
       } else {
         console.log("Camera permission denied")

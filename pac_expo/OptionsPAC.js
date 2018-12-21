@@ -115,7 +115,7 @@ export default class OptionsPAC extends Component {
 
       axios({
         method: 'post',
-        url: 'http://192.168.0.16:8080/upload/',
+        url: 'http://yourip/upload/',
         data: body,
         headers: {'Content-Type': 'multipart/form-data'},
       }) 
